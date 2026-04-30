@@ -26,8 +26,9 @@ type App struct {
 }
 
 var (
-	// Global logger
-	logger = log.New(os.Stdout, "", log.Ldate|log.Ltime|log.Lshortfile)
+	// Global logger - using log.Lmicroseconds instead of log.Ldate|log.Ltime
+	// for more precise timestamps, which is helpful when debugging timing issues.
+	logger = log.New(os.Stdout, "", log.Lmicroseconds|log.Lshortfile)
 )
 
 func init() {
@@ -115,16 +116,4 @@ func buildString() string {
 	return fmt.Sprintf("%s %s", appName, appVersion)
 }
 
-// generateSampleConfig writes a sample config.toml to the current directory.
-func generateSampleConfig() error {
-	sample := `# listmonk sample configuration
-# See https://listmonk.app/docs/configuration for all options.
-
-[app]
-address = "0.0.0.0:9000"
-admin_username = "listmonk"
-admin_
-`
-	_ = sample
-	return nil
-}
+// generateSampleConfig writes a sample config.toml t
